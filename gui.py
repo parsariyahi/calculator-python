@@ -3,53 +3,51 @@ from calc import Calc
 
 calculator = Calc()
 
+#globa values
+global_num1 = global_num2 = global_op = global_res = ""
 
-global_num1 = ""
-global_num2 = ""
-global_op = ""
-global_res = "" 
-
+again = False
 
 def press (num = '', op = '') :
-    global global_num1, global_num2, global_op, global_res
-
+    #global variables that we want to change their values
+    global global_num1, global_num2, global_op, global_res, again
+    
+    #if user press a opration button this will set global opration variable 
     if op :
         global_op = op
 
+    if global_op :
+        global_num2 += str(num)
+        equation.set(global_num2) 
+        #if user after equal to put another op and enter the secend number this will set num1 as perv result
         if global_res :
             global_num1 = global_res
             global_res = ""
-
-    if global_op :
-
-        global_num2 += str(num)
-        equation.set(global_num2) 
-        if global_num1 and global_num2 and global_op :
-                        
-            global_res = calculator.opration(float(global_num1), float(global_num2), global_op)
             
+    if again :
+        print("fdsafsa")
             
     else :
+        #if user after a opration like 1+2=3 pu another number this will empty the result value for next opration
+        if global_res :
+            global_res = ""
+        #get the first number
         global_num1 += str(num)
-        equation.set(global_num1) 
-        global_res = ""
+        equation.set(global_num1)
     
-
 def equal_press () :
+    #global variables that we want to change their values
     global global_num1, global_num2, global_op, global_res
-    if global_res :
+    if global_num1 and global_num2 and global_op :
+        global_res = calculator.opration(float(global_num1), float(global_num2), global_op)
         
-        equation.set(global_res)
-        global_num1 = ""
-        global_num2 = ""
-        global_op = ""
+        equation.set(global_res) 
+        global_num1 = global_num2 = global_op = ""
     
 def clear () :
+    #global variables that we want to change their values
     global global_num1, global_num2, global_op, global_res
-    global_num1 = ""
-    global_num2 = ""
-    global_op = ""
-    global_res = ""
+    global_num1 = global_num2 = global_op = global_res = ""
     equation.set("")    
 
 gui = Tk()
